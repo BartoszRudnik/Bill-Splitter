@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pim/model/user.dart';
 import 'package:pim/provider/user_provider.dart';
+import 'package:pim/widget/single_user_card.dart';
 import 'package:provider/provider.dart';
 
 class UserList extends StatelessWidget {
@@ -12,8 +13,10 @@ class UserList extends StatelessWidget {
 
     return ListView.builder(
       itemCount: users.length,
-      itemBuilder: (ctx, index) => Text(
-        users[index].name,
+      itemBuilder: (ctx, index) => SingleUserCard(
+        id: users[index].id,
+        name: users[index].name,
+        amount: users[index].amount,
       ),
     );
   }

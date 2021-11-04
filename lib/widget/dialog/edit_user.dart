@@ -4,8 +4,8 @@ import 'package:pim/provider/user_provider.dart';
 import 'package:pim/widget/button/save_user_button.dart';
 import 'package:provider/provider.dart';
 
-class AddNewUser {
-  static void showAddUserForm(BuildContext context) {
+class EditUser {
+  static void showEditForm(BuildContext context, String existingName, double existingAmount, int id) {
     final _formKey = GlobalKey<FormState>();
 
     String name = '';
@@ -16,7 +16,9 @@ class AddNewUser {
         _formKey.currentState!.save();
         _formKey.currentState!.reset();
 
-        Provider.of<UserProvider>(context, listen: false).addNewUser(name, amount);
+        Provider.of<UserProvider>(context, listen: false).editById(id, name, amount);
+
+        Navigator.of(context).pop();
       }
     }
 
@@ -44,6 +46,7 @@ class AddNewUser {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32.0),
                       child: TextFormField(
+                        initialValue: existingName,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "Please enter name";
@@ -59,6 +62,7 @@ class AddNewUser {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32.0),
                       child: TextFormField(
+                        initialValue: existingAmount.toStringAsFixed(2),
                         validator: (value) {
                           if (double.tryParse(
                                     value!.replaceAll(',', "."),

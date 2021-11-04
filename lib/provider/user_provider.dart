@@ -7,14 +7,35 @@ class UserProvider with ChangeNotifier {
   List<User> users = [];
   List<SplittingResult> results = [];
 
+  void reset() {
+    users = [];
+
+    notifyListeners();
+  }
+
   void calculate() {
     results = SplittingAlgorithm.calculate(users);
 
     notifyListeners();
   }
 
+  void editById(int id, String newName, double newAmount) {
+    User user = users.firstWhere((user) => user.id == id);
+
+    user.name = newName;
+    user.amount = newAmount;
+
+    notifyListeners();
+  }
+
+  void deleteUserById(int id) {
+    users.removeWhere((user) => user.id == id);
+
+    notifyListeners();
+  }
+
   void addNewUser(String name, double amount) {
-    users.add(User(name: name, amount: amount));
+    users.add(User(name: name, amount: amount, id: users.length + 1));
 
     notifyListeners();
   }

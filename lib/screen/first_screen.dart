@@ -12,7 +12,7 @@ class FirstScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColorDark,
       appBar: const FirstScreenAppBar(),
-      body: UserList(),
+      body: const UserList(),
       floatingActionButton: const AddNewUserButton(),
       bottomNavigationBar: const CalculateButton(),
     );

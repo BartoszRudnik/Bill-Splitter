@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pim/config/button_themes.dart';
-import 'package:pim/config/routes.dart';
 import 'package:pim/provider/user_provider.dart';
-import 'package:pim/widget/dialog/warning_dialog.dart';
 import 'package:provider/provider.dart';
 
-class CalculateButton extends StatelessWidget {
-  const CalculateButton({Key? key}) : super(key: key);
+class ResetButton extends StatelessWidget {
+  const ResetButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +16,7 @@ class CalculateButton extends StatelessWidget {
         child: const Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
-            'Calculate',
+            'Reset',
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.w700,
@@ -27,16 +25,9 @@ class CalculateButton extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          if (Provider.of<UserProvider>(context, listen: false).users.length > 1) {
-            Provider.of<UserProvider>(context, listen: false).calculate();
+          Provider.of<UserProvider>(context, listen: false).reset();
 
-            Navigator.of(context).pushNamed(Routes.secondScreenRoute);
-          } else {
-            showDialog(
-              context: context,
-              builder: (ctx) => const WarningDialog(),
-            );
-          }
+          Navigator.of(context).pop();
         },
       ),
     );
