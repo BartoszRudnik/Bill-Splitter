@@ -11,8 +11,9 @@ class UserList extends StatelessWidget {
     final List<User> users = Provider.of<UserProvider>(context).users;
 
     return ListView.builder(
+      itemCount: users.length,
       itemBuilder: (ctx, index) => Text(
-        users[index].toString(),
+        users[index].name,
       ),
     );
   }

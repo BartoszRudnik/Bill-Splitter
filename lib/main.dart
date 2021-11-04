@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pim/config/routes.dart';
 import 'package:pim/provider/user_provider.dart';
 import 'package:pim/screen/first_screen.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
           primaryColorLight: const Color.fromRGBO(245, 189, 31, 1),
         ),
         home: const FirstScreen(),
+        routes: Routes.routes,
       ),
     );
   }
