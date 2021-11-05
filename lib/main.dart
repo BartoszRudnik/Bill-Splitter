@@ -22,9 +22,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Bill Share App',
         theme: ThemeData(
-          primaryColor: const Color.fromRGBO(71, 41, 123, 1),
-          primaryColorDark: const Color.fromRGBO(135, 54, 170, 1),
-          primaryColorLight: const Color.fromRGBO(245, 189, 31, 1),
+          primaryColor: const Color(0xFF344955),
+          primaryColorDark: const Color(0xFFe0e2ee),
+          primaryColorLight: const Color(0xFFF9AA33),
+          accentColor: const Color(0xFF232F34),
         ),
         home: const FirstScreen(),
         routes: Routes.routes,

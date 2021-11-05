@@ -15,7 +15,7 @@ class SingleResultCard extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Card(
         elevation: 2,
-        color: Theme.of(context).primaryColorLight,
+        color: Theme.of(context).accentColor,
         child: Container(
           height: 50,
           padding: const EdgeInsets.all(8.0),

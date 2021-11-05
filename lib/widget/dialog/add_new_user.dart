@@ -21,7 +21,7 @@ class AddNewUser {
     }
 
     showModalBottomSheet(
-      backgroundColor: const Color.fromRGBO(71, 41, 123, 1),
+      backgroundColor: Theme.of(context).accentColor,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(25.0),

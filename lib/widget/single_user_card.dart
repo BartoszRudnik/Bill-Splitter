@@ -21,12 +21,12 @@ class SingleUserCard extends StatelessWidget {
       child: Center(
         child: Card(
           elevation: 2,
-          color: Theme.of(context).primaryColorLight,
+          color: Theme.of(context).accentColor,
           child: Container(
             height: 70,
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   name,
@@ -46,7 +46,7 @@ class SingleUserCard extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    TextButton.icon(
+                    IconButton(
                       onPressed: () {
                         EditUser.showEditForm(context, name, amount, id);
                       },
@@ -54,12 +54,8 @@ class SingleUserCard extends StatelessWidget {
                         Icons.edit_outlined,
                         color: Colors.white,
                       ),
-                      label: const Text(
-                        'Edit',
-                        style: TextStyle(color: Colors.white),
-                      ),
                     ),
-                    TextButton.icon(
+                    IconButton(
                       onPressed: () {
                         showDialog(
                           context: context,
@@ -69,10 +65,6 @@ class SingleUserCard extends StatelessWidget {
                       icon: const Icon(
                         Icons.delete_outline,
                         color: Colors.white,
-                      ),
-                      label: const Text(
-                        'Delete',
-                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ],
