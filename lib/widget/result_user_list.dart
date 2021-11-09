@@ -11,33 +11,55 @@ class ResultUserList extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<SplittingResult> results = Provider.of<UserProvider>(context).results;
 
-    return ListView.builder(
-        itemCount: results.length,
-        itemBuilder: (ctx, index) => results[index].amount > 0
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SingleResultCard(user: results[index].from),
-                  Column(
-                    children: [
-                      const Icon(
-                        Icons.forward,
-                        color: Colors.white,
-                        size: 45,
+    return SingleChildScrollView(
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: ListView.separated(
+          itemCount: results.length,
+          separatorBuilder: (context, index) {
+            return const Divider(
+              thickness: 1,
+            );
+          },
+          itemBuilder: (ctx, index) => results[index].amount > 0
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: SingleResultCard(
+                        user: results[index].from,
+                        isFirst: true,
                       ),
-                      Text(
-                        "\$ " + results[index].amount.toStringAsFixed(2),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                        ),
+                    ),
+                    Flexible(
+                      child: Column(
+                        children: [
+                          const Icon(
+                            Icons.forward,
+                            size: 30,
+                          ),
+                          Text(
+                            "\$ " + results[index].amount.toStringAsFixed(2),
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  SingleResultCard(user: results[index].to),
-                ],
-              )
-            : Container());
+                    ),
+                    Expanded(
+                      child: SingleResultCard(
+                        user: results[index].to,
+                        isFirst: false,
+                      ),
+                    ),
+                  ],
+                )
+              : Container(),
+        ),
+      ),
+    );
   }
 }

@@ -1,6 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:pim/widget/dialog/delete_dialog.dart';
-import 'package:pim/widget/dialog/edit_user.dart';
+import 'button/edit_user_button.dart';
 
 class SingleUserCard extends StatelessWidget {
   const SingleUserCard({
@@ -8,70 +10,71 @@ class SingleUserCard extends StatelessWidget {
     required this.name,
     required this.amount,
     required this.id,
+    required this.image,
   }) : super(key: key);
 
   final int id;
   final String name;
   final double amount;
+  final Uint8List? image;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Center(
-        child: Card(
-          elevation: 2,
-          color: Theme.of(context).accentColor,
-          child: Container(
-            height: 70,
-            padding: const EdgeInsets.all(8.0),
+    return ListTile(
+      leading: image == null
+          ? const CircleAvatar(
+              backgroundImage: AssetImage("assets/Profile_avatar_placeholder_large.png"),
+            )
+          : CircleAvatar(
+              backgroundImage: MemoryImage(image!),
+            ),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Text(
+              name,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Flexible(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  name,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
+                Flexible(
+                  child: EditUserButton(
+                    id: id,
+                    existingAmount: amount,
+                    existingName: name,
+                    existingImage: image,
                   ),
                 ),
-                Text(
-                  "\$ " + amount.toStringAsFixed(2),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
+                Flexible(
+                  child: IconButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => DeleteDialog(id: id),
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.delete_outline,
+                    ),
                   ),
                 ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        EditUser.showEditForm(context, name, amount, id);
-                      },
-                      icon: const Icon(
-                        Icons.edit_outlined,
-                        color: Colors.white,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (ctx) => DeleteDialog(id: id),
-                        );
-                      },
-                      icon: const Icon(
-                        Icons.delete_outline,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                )
               ],
             ),
           ),
+        ],
+      ),
+      subtitle: Text(
+        "\$ " + amount.toStringAsFixed(2),
+        style: const TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );

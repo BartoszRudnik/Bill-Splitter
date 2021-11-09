@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pim/config/text_field_themes.dart';
 import 'package:pim/provider/user_provider.dart';
 import 'package:pim/widget/button/save_user_button.dart';
@@ -10,13 +13,14 @@ class AddNewUser {
 
     String name = '';
     double amount = 0.0;
+    Uint8List image = 0 as Uint8List;
 
     void save() {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
         _formKey.currentState!.reset();
 
-        Provider.of<UserProvider>(context, listen: false).addNewUser(name, amount);
+        Provider.of<UserProvider>(context, listen: false).addNewUser(name, amount, image);
       }
     }
 
@@ -37,6 +41,18 @@ class AddNewUser {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              GestureDetector(
+                onTap: () async {
+                  final ImagePicker _picker = ImagePicker();
+
+                  final newImage = await _picker.pickImage(source: ImageSource.gallery);
+
+                  image = await newImage!.readAsBytes();
+                },
+                child: CircleAvatar(
+                  backgroundImage: MemoryImage(image),
+                ),
+              ),
               Form(
                 key: _formKey,
                 child: Column(
@@ -84,7 +100,10 @@ class AddNewUser {
                   ],
                 ),
               ),
-              SaveUserButton(save: save),
+              SaveUserButton(
+                save: save,
+                ctx: ctx,
+              ),
             ],
           ),
         ),

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:pim/model/splitting_result.dart';
 import 'package:pim/model/user.dart';
@@ -19,11 +21,12 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void editById(int id, String newName, double newAmount) {
+  void editById(int id, String newName, double newAmount, Uint8List? newImage) {
     User user = users.firstWhere((user) => user.id == id);
 
     user.name = newName;
     user.amount = newAmount;
+    user.image = newImage;
 
     notifyListeners();
   }
@@ -34,14 +37,21 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void addNewUser(String name, double amount) {
-    users.add(User(name: name, amount: amount, id: users.length + 1));
+  void addNewUser(String name, double amount, Uint8List? image) {
+    users.add(
+      User(
+        name: name,
+        amount: amount,
+        id: users.length + 1,
+        image: image,
+      ),
+    );
 
     notifyListeners();
   }
 
   String getNumberOfPerson() {
-    return users.length.toString() + " person's";
+    return users.length.toString() + (users.length > 1 ? " person's" : " person");
   }
 
   String getTotalAmount() {

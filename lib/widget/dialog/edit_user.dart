@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:pim/config/text_field_themes.dart';
 import 'package:pim/provider/user_provider.dart';
@@ -10,13 +12,14 @@ class EditUser {
 
     String name = '';
     double amount = 0.0;
+    Uint8List? image;
 
     void save() {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
         _formKey.currentState!.reset();
 
-        Provider.of<UserProvider>(context, listen: false).editById(id, name, amount);
+        Provider.of<UserProvider>(context, listen: false).editById(id, name, amount, image!);
 
         Navigator.of(context).pop();
       }
@@ -88,7 +91,10 @@ class EditUser {
                   ],
                 ),
               ),
-              SaveUserButton(save: save),
+              SaveUserButton(
+                save: save,
+                ctx: ctx,
+              ),
             ],
           ),
         ),

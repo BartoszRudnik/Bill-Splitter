@@ -5,16 +5,18 @@ class SaveUserButton extends StatelessWidget {
   const SaveUserButton({
     Key? key,
     required this.save,
+    required this.ctx,
   }) : super(key: key);
 
   final Function save;
+  final BuildContext ctx;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonThemes.submitButtonStyle(context),
       onPressed: () {
-        save();
+        save(ctx);
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.6,

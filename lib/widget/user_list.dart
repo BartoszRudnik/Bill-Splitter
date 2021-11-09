@@ -11,12 +11,44 @@ class UserList extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<User> users = Provider.of<UserProvider>(context).users;
 
-    return ListView.builder(
-      itemCount: users.length,
-      itemBuilder: (ctx, index) => SingleUserCard(
-        id: users[index].id,
-        name: users[index].name,
-        amount: users[index].amount,
+    final String numberOfPersons = Provider.of<UserProvider>(context).getNumberOfPerson();
+    final String totalAmount = Provider.of<UserProvider>(context).getTotalAmount();
+
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Total amount: " + totalAmount,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: ListView.separated(
+              itemCount: users.length,
+              separatorBuilder: (context, index) {
+                return const Divider(
+                  thickness: 1,
+                );
+              },
+              itemBuilder: (ctx, index) => SingleUserCard(
+                id: users[index].id,
+                name: users[index].name,
+                amount: users[index].amount,
+                image: users[index].image,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

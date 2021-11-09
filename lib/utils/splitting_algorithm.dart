@@ -9,7 +9,14 @@ class SplittingAlgorithm {
     List<User> users = [];
 
     for (var user in initUsers) {
-      users.add(User(amount: user.amount, id: user.id, name: user.name));
+      users.add(
+        User(
+          amount: user.amount,
+          id: user.id,
+          name: user.name,
+          image: user.image,
+        ),
+      );
       sumOfAmounts += user.amount;
     }
 

@@ -5,32 +5,47 @@ class SingleResultCard extends StatelessWidget {
   const SingleResultCard({
     Key? key,
     required this.user,
+    required this.isFirst,
   }) : super(key: key);
 
   final User user;
+  final bool isFirst;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        elevation: 2,
-        color: Theme.of(context).accentColor,
-        child: Container(
-          height: 50,
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Text(
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+      horizontalTitleGap: 8,
+      leading: isFirst
+          ? user.image == null
+              ? const CircleAvatar(
+                  backgroundImage: AssetImage("assets/Profile_avatar_placeholder_large.png"),
+                )
+              : CircleAvatar(
+                  backgroundImage: MemoryImage(user.image!),
+                )
+          : Text(
               user.name,
               style: const TextStyle(
-                color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
               ),
             ),
-          ),
-        ),
-      ),
+      title: isFirst
+          ? Text(
+              user.name,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+              ),
+            )
+          : user.image == null
+              ? const CircleAvatar(
+                  backgroundImage: AssetImage("assets/Profile_avatar_placeholder_large.png"),
+                )
+              : CircleAvatar(
+                  backgroundImage: MemoryImage(user.image!),
+                ),
     );
   }
 }
