@@ -38,7 +38,7 @@ class _AddNewUserButtonState extends State<AddNewUserButton> {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
+    return IconButton(
       onPressed: () {
         showModalBottomSheet(
           backgroundColor: Theme.of(context).accentColor,
@@ -138,10 +138,9 @@ class _AddNewUserButtonState extends State<AddNewUserButton> {
           ),
         );
       },
-      backgroundColor: Theme.of(context).primaryColorLight,
-      child: const Icon(
-        Icons.add_outlined,
-        size: 48,
+      icon: const Icon(
+        Icons.group_add_outlined,
+        size: 36,
         color: Colors.white,
       ),
     );

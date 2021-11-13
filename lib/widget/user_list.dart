@@ -10,8 +10,6 @@ class UserList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<User> users = Provider.of<UserProvider>(context).users;
-
-    final String numberOfPersons = Provider.of<UserProvider>(context).getNumberOfPerson();
     final String totalAmount = Provider.of<UserProvider>(context).getTotalAmount();
 
     return SingleChildScrollView(

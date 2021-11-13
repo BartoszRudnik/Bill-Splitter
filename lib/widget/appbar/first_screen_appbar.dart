@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pim/provider/user_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:pim/widget/button/add_new_user_button.dart';
 
 class FirstScreenAppBar extends StatelessWidget with PreferredSizeWidget {
   const FirstScreenAppBar({
@@ -25,6 +24,12 @@ class FirstScreenAppBar extends StatelessWidget with PreferredSizeWidget {
       systemOverlayStyle: const SystemUiOverlayStyle(statusBarColor: Colors.black),
       backgroundColor: Theme.of(context).primaryColor,
       iconTheme: Theme.of(context).iconTheme,
+      actions: const [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: AddNewUserButton(),
+        ),
+      ],
     );
   }
 
