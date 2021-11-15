@@ -73,7 +73,7 @@ class _EditUserButtonState extends State<EditUserButton> {
             builder: (context, setState) => Padding(
               padding: MediaQuery.of(ctx).viewInsets,
               child: SizedBox(
-                height: MediaQuery.of(ctx).size.height * 0.38,
+                height: MediaQuery.of(ctx).size.height * 0.46,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -86,17 +86,23 @@ class _EditUserButtonState extends State<EditUserButton> {
                             onTap: () async {
                               final ImagePicker _picker = ImagePicker();
 
-                              XFile? newImage = await _picker.pickImage(source: ImageSource.camera);
+                              XFile? newImage = await _picker.pickImage(source: ImageSource.gallery);
                               image = await newImage!.readAsBytes();
 
                               setState(() {});
                             },
                             child: image == null
-                                ? const CircleAvatar(
-                                    backgroundImage: AssetImage("assets/Profile_avatar_placeholder_large.png"),
+                                ? const Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 4.0),
+                                    child: CircleAvatar(
+                                      backgroundImage: AssetImage("assets/Profile_avatar_placeholder_large.png"),
+                                    ),
                                   )
-                                : CircleAvatar(
-                                    backgroundImage: MemoryImage(image!),
+                                : Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: CircleAvatar(
+                                      backgroundImage: MemoryImage(image!),
+                                    ),
                                   ),
                           ),
                           Padding(
